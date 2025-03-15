@@ -4,7 +4,7 @@ import cors from "cors";
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 const SHOPIFY_STORE = process.env.SHOPIFY_STORE_NAME
 const ADMIN_API_TOKEN = process.env.SHOPIFY_STORE_API
