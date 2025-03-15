@@ -4,10 +4,18 @@ import cors from "cors";
 
 const app = express();
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 
 const SHOPIFY_STORE = process.env.SHOPIFY_STORE_NAME
 const ADMIN_API_TOKEN = process.env.SHOPIFY_STORE_API
+
+app.options("*", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "https://quickstart-d37e3800.myshopify.com");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.sendStatus(200);
+});
+
 
 app.get("/get-store-details", async (req, res) => {
   const query = `
