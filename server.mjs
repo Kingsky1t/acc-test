@@ -1,9 +1,8 @@
 import express from "express";
 import fetch from "node-fetch";
 import cors from "cors";
-import dotenv from "dotenv"
+import 'dotenv/config'
 
-dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors());
