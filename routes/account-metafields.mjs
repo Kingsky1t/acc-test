@@ -12,7 +12,7 @@ router.get('/test', (req, res) => {
 router.post('/update', async (req, res) => {
     const { customer_id, firstName, lastName, email, phone, metafields } = req.body;
 
-    const formattedMetafields = metafields
+    const formattedMetafields = JSON.parse(metafields)
         .map(
             mf =>
                 `{
