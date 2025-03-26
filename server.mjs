@@ -6,7 +6,12 @@ import accountRouter from "./routes/account-metafields.mjs"
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+  {
+  origin: 'https://lucirajewelry.com', // ✅ allow your frontend
+  credentials: true // if you're using cookies/session
+}
+));
 
 const SHOPIFY_STORE_NAME = process.env.SHOPIFY_STORE_NAME;
 const SHOPIFY_STORE_API = process.env.SHOPIFY_STORE_API;
