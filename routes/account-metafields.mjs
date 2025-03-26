@@ -55,7 +55,7 @@ router.post('/update', async (req, res) => {
             metafields: formattedMetafields,
         },
     };
-    console.log(variables);
+    console.dir(variables, {depth: null});
     try {
         const response = await fetch(`https://${SHOPIFY_STORE_NAME}/admin/api/2025-01/graphql.json`, {
             method: 'POST',
@@ -67,7 +67,7 @@ router.post('/update', async (req, res) => {
         });
 
         const data = await response.json();
-        console.log(data);
+        console.dir(data, {depth: null});
         if (data.errors || data.data.customerUpdate.userErrors.length > 0) {
             throw new Error(data.errors || data.data.customerUpdate.userErrors[0].message);
         }
