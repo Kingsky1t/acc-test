@@ -8,6 +8,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+const SHOPIFY_STORE_NAME = process.env.SHOPIFY_STORE_NAME;
+const SHOPIFY_STORE_API = process.env.SHOPIFY_STORE_API;
+
 app.use("/api/account", accountRouter)
 
 app.get("/get-store-details", async (req, res) => {
@@ -26,21 +29,22 @@ app.get("/get-store-details", async (req, res) => {
   `;
 
   try {
-    const response = await fetch(`https://${SHOPIFY_STORE}/admin/api/2023-10/graphql.json`, {
+    const response = await fetch(`https://${SHOPIFY_STORE_NAME}/admin/api/2025-01/graphql.json`, {
       method: "POST",
       headers: {
-        "X-Shopify-Access-Token": ADMIN_API_TOKEN,
+        "X-Shopify-Access-Token": SHOPIFY_STORE_API,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ query })
     });
 
     const data = await response.json();
-    if (!response.ok) throw new Error(data.errors || "Failed to fetch store details");
     console.log(data)
+    if (!response.ok) throw new Error(data.errors || "Failed to fetch store details");
     res.json({ success: true, store: data.data.shop });
 
   } catch (error) {
+    console.dir(error, { depth: null })
     res.status(400).json({ error: error.message });
   }
 });
